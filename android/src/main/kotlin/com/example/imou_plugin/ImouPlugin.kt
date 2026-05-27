@@ -28,9 +28,9 @@ class ImouPlugin: FlutterPlugin, ActivityAware, EventChannel.StreamHandler {
 //  private lateinit var frameLayout: FrameLayout;
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
   val messenger = flutterPluginBinding.binaryMessenger
-  channel = MethodChannel(messenger, "navigation_plugin")
+  channel = MethodChannel(messenger, "imou_plugin")
 
-  progressEventChannel = EventChannel(messenger, "navigation_plugin/events")
+  progressEventChannel = EventChannel(messenger, "imou_plugin/events")
   progressEventChannel.setStreamHandler(this)
 
   platformViewRegistry = flutterPluginBinding.platformViewRegistry
@@ -83,7 +83,6 @@ class ImouPlugin: FlutterPlugin, ActivityAware, EventChannel.StreamHandler {
   }
 
   override fun onDetachedFromActivity() {
-    currentActivity!!.finish()
     currentActivity = null
   }
 

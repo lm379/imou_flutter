@@ -62,7 +62,7 @@ public class ImouCameraFactory : ImouFactory, FlutterPlatformView{
         // 1. set https
         apiParam.procotol = ProcotolType.PROCOTOL_TYPE_HTTPS
         // 2. set Imou Cloud Host
-        apiParam.addr = "openapi-sg.easy4ip.com"
+        apiParam.addr = "openapi.lechange.cn"
         // 3. set port
         apiParam.port = 443
         // 4. set developer access token

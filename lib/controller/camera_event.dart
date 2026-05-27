@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'platform_event.dart';
 
 class CameraEvent {
@@ -8,15 +10,21 @@ class CameraEvent {
 
   CameraEvent.fromJson(Map<String, dynamic> json) {
     if (json['eventType'] is int) {
-      eventType = PlatformEvent.values[json['eventType']];
+      final index = json['eventType'] as int;
+      if (index >= 0 && index < PlatformEvent.values.length) {
+        eventType = PlatformEvent.values[index];
+      } else {
+        debugPrint('CameraEvent.fromJson: invalid eventType index: $index');
+      }
     } else {
       try {
         eventType = PlatformEvent.values.firstWhere(
             (e) => e.toString().split(".").last == json['eventType']);
       } on StateError {
-        //When the list is empty or eventType not found (Bad State: No Element)
+        debugPrint(
+            'CameraEvent.fromJson: unknown eventType: ${json['eventType']}');
       } catch (e) {
-        // TODO handle the error
+        debugPrint('CameraEvent.fromJson: unexpected error: $e');
       }
     }
   }

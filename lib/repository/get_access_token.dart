@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../model/access_token_response.dart';
@@ -12,8 +13,7 @@ class ImouConnect {
       {required String appId,
       required String id,
       required String appSecret}) async {
-    String serverUrl = 'https://openapi-sg.easy4ip.com:443/openapi/accessToken';
-    //      "appId": "lc673b804bdb5849cd",
+    String serverUrl = 'https://openapi.lechange.cn:443/openapi/accessToken';
     String nonce = Uuid().v4();
     int time = (DateTime.now().millisecondsSinceEpoch / 1000).round();
     var initialBody = {
@@ -31,10 +31,10 @@ class ImouConnect {
 
     try {
       var req = await Dio().post(serverUrl, data: initialBody);
-      print(req.data);
+      debugPrint('ImouConnect response: ${req.data}');
       return AccessTokenResponse.fromJson(json.decode(req.data));
     } catch (e) {
-      print("Failure");
+      debugPrint('ImouConnect getAccessToken failed: $e');
       return null;
     }
   }
@@ -45,12 +45,6 @@ class ImouConnect {
 
   static String _getSign(
       {required int time, required String nonce, required String appSecret}) {
-    // ignore: prefer_interpolation_to_compose_strings
-    return 'time:' +
-        time.toString() +
-        ",nonce:" +
-        nonce +
-        ",appSecret:" +
-        appSecret;
+    return 'time:$time,nonce:$nonce,appSecret:$appSecret';
   }
 }

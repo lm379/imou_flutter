@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:imou_plugin/controller/camera_controller.dart';
-import 'package:imou_plugin/controller/camera_event.dart';
 
 import '../model/camera_view_options.dart';
 
@@ -19,19 +18,17 @@ class CameraView extends StatelessWidget {
 
   final OnCameraViewCreatedCallBack? onCreated;
   final CameraViewOptions cameraViewOptions;
-  final ValueSetter<CameraEvent>? onCameraEvent;
   static const String viewType = 'ImouCameraView';
 
-  const CameraView(
-      {super.key,
-      this.onCreated,
-      required this.cameraViewOptions,
-      this.onCameraEvent});
+  const CameraView({
+    super.key,
+    this.onCreated,
+    required this.cameraViewOptions,
+  });
 
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
-      // using Hybrid Composition
       return PlatformViewLink(
         viewType: viewType,
         surfaceFactory: (context, controller) {
@@ -72,6 +69,6 @@ class CameraView extends StatelessWidget {
     if (onCreated == null) {
       return;
     }
-    onCreated!(CameraViewController(id, onCameraEvent));
+    onCreated!(CameraViewController(id));
   }
 }

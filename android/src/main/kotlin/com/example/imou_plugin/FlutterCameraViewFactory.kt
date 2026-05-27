@@ -64,7 +64,7 @@ class FlutterCameraViewFactory(
     private fun initSDK(call: MethodCall, result: MethodChannel.Result) {
         val accessToken: String = call.argument("accessToken")!!
 
-        LCOpenSDK_Api.initOpenApi(InitParams(context,"openapi-sg.easy4ip.com:443",accessToken))
+        LCOpenSDK_Api.initOpenApi(InitParams(context,"openapi.lechange.cn:443",accessToken))
         val deviceId: String = call.argument("deviceId")!!
         val channelId: Int = call.argument("channelId")!!
         val psk: String = call.argument("psk")!!
